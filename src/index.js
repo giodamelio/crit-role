@@ -7,3 +7,4 @@ app.use(async ctx => {
 });
 
 app.listen(3141);
+console.log('App running on port: 3141');
