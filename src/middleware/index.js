@@ -1,3 +1,3 @@
 module.exports = {
-  nunjucks: require('./nunjucks')
-}
+  nunjucks: require('./nunjucks'),
+};

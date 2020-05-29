@@ -10,9 +10,9 @@ const asyncRender = (templatePath, data) => {
         return reject(err);
       }
       return resolve(rendered);
-    })
-  })
-}
+    });
+  });
+};
 
 // The actual middleware
 module.exports = async (ctx, next) => {
@@ -21,7 +21,7 @@ module.exports = async (ctx, next) => {
     const rendered = await asyncRender(templatePath, data);
     ctx.type = 'html';
     ctx.body = rendered;
-  }
+  };
 
   await next();
-}
+};
