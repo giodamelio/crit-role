@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/giodamelio/crit-role#readme",
   "dependencies": {
+    "@koa/router": "^8.0.8",
     "koa": "^2.12.0"
   },
   "devDependencies": {
