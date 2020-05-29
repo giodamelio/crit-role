@@ -9,6 +9,7 @@ RUN npm ci --only=production
 
 # Copy the code
 COPY src/ ./src/
+COPY views/ ./views/
 
 EXPOSE 3141
 ENTRYPOINT ["node", "src/index.js"]
