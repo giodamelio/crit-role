@@ -5,5 +5,9 @@ in
 pkgs.mkShell {
   buildInputs = [
     pkgs.nodejs-12_x
+
+    # Dev tools
+    pkgs.just
+    pkgs.awsebcli
   ];
 }
