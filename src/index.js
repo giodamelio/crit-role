@@ -1,6 +1,7 @@
 const Koa = require('koa');
 const Router = require('@koa/router');
-const nunjucks = require('nunjucks');
+
+const { nunjucks } = require('./middleware')
 
 const app = new Koa();
 const router = new Router();
@@ -17,28 +18,7 @@ router.get('/random', async ctx => {
   ctx.render('random_number.njk', { number: Math.random() })
 })
 
-// Setup Nunjucks rendering
-const nj = new nunjucks.Environment(new nunjucks.FileSystemLoader('views'));
-const asyncRender = (templatePath, data) => {
-  return new Promise((resolve, reject) => {
-    nj.render(templatePath, data, (err, rendered) => {
-      if (err) {
-        return reject(err);
-      }
-      return resolve(rendered);
-    })
-  })
-}
-app.use(async (ctx, next) => {
-  // Add a render function for the routes to use
-  ctx.render = async (templatePath, data) => {
-    const rendered = await asyncRender(templatePath, data);
-    ctx.type = 'html';
-    ctx.body = rendered;
-  }
-
-  await next();
-});
+app.use(nunjucks)
 
 app
   .use(router.routes())
