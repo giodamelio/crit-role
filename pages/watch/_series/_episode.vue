@@ -1,18 +1,26 @@
 <template>
-  <h1>Viewing Episode: {{ series }}/{{ episode }}</h1>
+  <div>
+    <h1>Viewing an Episode</h1>
+    <pre>
+    {{ videoData }}
+    </pre>
+  </div>
 </template>
 
 <script lang="ts">
 export default {
-  validate({ params }: { params: any }) {
-    console.log(params);
-    return true;
-  },
   data() {
     return {
-      series: this.$route.params.series,
-      episode: this.$route.params.episode
+      videoData: ''
     };
+  },
+  async fetch() {
+    const videoData = await this.$database.exec(
+      'SELECT * FROM video WHERE id = ?',
+      [this.$route.params.episode]
+    );
+    console.log(videoData);
+    this.videoData = videoData;
   }
 };
 </script>

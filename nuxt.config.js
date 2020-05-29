@@ -31,7 +31,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: ['~/plugins/load-database'],
   /*
    ** Nuxt.js dev-modules
    */
@@ -63,4 +63,4 @@ export default {
      */
     extend(config, ctx) {}
   }
-}
+};

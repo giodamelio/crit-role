@@ -1,0 +1,16 @@
+{
+  "video": [
+    {
+      "id": "curious-beginnings",
+      "title": "Curious Beginnings",
+      "youtubeId": "byva0hOj8CU",
+      "series": "mighty-nein"
+    }
+  ],
+  "series": [
+    {
+      "id": "mighty-nein",
+      "title": "Campain 2 | Mighty Nein"
+    }
+  ]
+}
