@@ -1,7 +1,7 @@
 const Koa = require('koa');
 const Router = require('@koa/router');
 
-const { nunjucks } = require('./middleware');
+const { error, nunjucks } = require('./middleware');
 
 const app = new Koa();
 const router = new Router();
@@ -15,12 +15,18 @@ router.post('/ping', async (ctx) => {
 });
 
 router.get('/random', async (ctx) => {
-  ctx.render('random_number.njk', { number: Math.random() });
+  await ctx.render('random_number.njk', { number: Math.random() });
 });
 
+app.use(error);
 app.use(nunjucks);
 
 app.use(router.routes()).use(router.allowedMethods());
+
+// Log when errors happen
+app.on('error', (error, ctx) => {
+  console.log(error);
+});
 
 app.listen(3141);
 console.log('App running on port: 3141');
