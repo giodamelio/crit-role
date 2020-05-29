@@ -8,6 +8,7 @@ pkgs.mkShell {
 
     # Dev tools
     pkgs.just
-    pkgs.awsebcli
+    pkgs.awscli
+    #pkgs.awsebcli
   ];
 }
