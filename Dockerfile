@@ -26,5 +26,8 @@ RUN npm ci --only=production
 COPY --from=build /usr/src/app/dist/ ./dist/
 COPY views/ ./views/
 
+# Ensure that sourcemaps work correctly
+ENV NODE_OPTIONS=--enable-source-maps
+
 EXPOSE 3141
 ENTRYPOINT ["node", "dist/index.js"]
