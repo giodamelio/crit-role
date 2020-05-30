@@ -1,5 +1,5 @@
 ## Build the Typescript
-FROM node:14 AS build
+FROM node:14
 
 WORKDIR /usr/src/app
 
@@ -13,7 +13,7 @@ COPY . ./
 RUN npm run build
 
 ## Run the server
-FROM node:14 AS server
+FROM node:14
 
 WORKDIR /usr/src/app
 
@@ -23,7 +23,7 @@ COPY package-lock.json ./
 RUN npm ci --only=production
 
 # Copy the code
-COPY --from=build /usr/src/app/dist/ ./dist/
+COPY --from=0 /usr/src/app/dist/ ./dist/
 COPY views/ ./views/
 
 # Ensure that sourcemaps work correctly
