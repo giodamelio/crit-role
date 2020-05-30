@@ -19,7 +19,7 @@ router.get('/random', async (ctx: Koa.ParameterizedContext) => {
 });
 
 app.use(error);
-app.use(nunjucks);
+app.use(nunjucks('views'));
 
 app.use(router.routes()).use(router.allowedMethods());
 
