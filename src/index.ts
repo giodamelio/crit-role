@@ -1,20 +1,20 @@
-const Koa = require('koa');
-const Router = require('@koa/router');
+import Koa from 'koa';
+import Router from '@koa/router';
 
-const { error, nunjucks } = require('./middleware');
+import { error, nunjucks } from './middleware';
 
 const app = new Koa();
 const router = new Router();
 
-router.get('/', async (ctx) => {
+router.get('/', async (ctx: Koa.ParameterizedContext) => {
   ctx.body = 'Hello World';
 });
 
-router.post('/ping', async (ctx) => {
+router.post('/ping', async (ctx: Koa.ParameterizedContext) => {
   ctx.body = { response: 'pong' };
 });
 
-router.get('/random', async (ctx) => {
+router.get('/random', async (ctx: Koa.ParameterizedContext) => {
   await ctx.render('random_number.njk', { number: Math.random() });
 });
 
@@ -24,7 +24,7 @@ app.use(nunjucks);
 app.use(router.routes()).use(router.allowedMethods());
 
 // Log when errors happen
-app.on('error', (error, ctx) => {
+app.on('error', (error: Error) => {
   console.log(error);
 });
 

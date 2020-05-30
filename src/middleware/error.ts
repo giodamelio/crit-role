@@ -1,4 +1,6 @@
-module.exports = async (ctx, next) => {
+import Koa from 'koa';
+
+export default async (ctx: Koa.ParameterizedContext, next: any) => {
   try {
     await next();
   } catch (error) {
