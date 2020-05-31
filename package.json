@@ -7,7 +7,8 @@
     "start": "ts-node src/index.ts",
     "dev": "ts-node-dev src/index.ts",
     "format": "prettier --write src/**/*.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "test": "jest test/"
   },
   "repository": {
     "type": "git",
@@ -26,12 +27,16 @@
     "nunjucks": "^3.2.1"
   },
   "devDependencies": {
+    "@shopify/jest-koa-mocks": "^2.2.2",
+    "@types/jest": "^25.2.3",
     "@types/koa": "^2.11.3",
     "@types/koa__router": "^8.0.2",
     "@types/node": "^14.0.5",
     "@types/nunjucks": "^3.1.3",
+    "jest": "^26.0.1",
     "node-dev": "^4.0.0",
     "prettier": "^2.0.5",
+    "ts-jest": "^26.0.0",
     "ts-node": "^8.10.2",
     "ts-node-dev": "^1.0.0-pre.44",
     "typescript": "^3.9.3"
