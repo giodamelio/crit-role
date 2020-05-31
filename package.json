@@ -39,6 +39,7 @@
     "eslint": "^7.1.0",
     "eslint-config-airbnb-typescript": "^7.2.1",
     "eslint-plugin-import": "^2.20.2",
+    "husky": "^4.2.5",
     "jest": "^26.0.1",
     "node-dev": "^4.0.0",
     "prettier": "^2.0.5",
@@ -46,5 +47,11 @@
     "ts-node": "^8.10.2",
     "ts-node-dev": "^1.0.0-pre.44",
     "typescript": "^3.9.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint && npm run format -- --check",
+      "pre-push": "npm test"
+    }
   }
 }
