@@ -1,7 +1,9 @@
 import Koa from 'koa';
 import Router from '@koa/router';
 import helmet from 'koa-helmet';
+import koaPinoLogger from 'koa-pino-logger';
 
+import logger from './logger';
 import { error as errorMiddleware, nunjucks } from './middleware';
 
 const app = new Koa();
@@ -20,6 +22,7 @@ router.get('/random', async (ctx: Koa.ParameterizedContext) => {
 });
 
 app.use(errorMiddleware);
+app.use(koaPinoLogger({ logger }));
 app.use(helmet());
 app.use(nunjucks('views'));
 
@@ -27,10 +30,8 @@ app.use(router.routes()).use(router.allowedMethods());
 
 // Log when errors happen
 app.on('error', (error: Error) => {
-  // eslint-disable-next-line no-console
-  console.log(error);
+  logger.info(error);
 });
 
 app.listen(3141);
-// eslint-disable-next-line no-console
-console.log('App running on port: 3141');
+logger.info('App running on port: 3141');

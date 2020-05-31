@@ -1,6 +1,8 @@
 import nunjucks from 'nunjucks';
 import Koa from 'koa';
 
+import logger from '../logger';
+
 // Convert the render function to return a promise
 export function asyncRender(
   nunjucksEnvironment: nunjucks.Environment,
@@ -50,6 +52,7 @@ export default function nunjucksMiddlewareFactory(
       templatePath: string,
       data: object | undefined,
     ): Promise<void> => {
+      logger.trace({ templatePath, data }, 'Rendering view');
       const rendered = await asyncRender(nj, templatePath, data);
       ctx.type = 'html';
       ctx.body = rendered;
