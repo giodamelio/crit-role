@@ -1,7 +1,7 @@
 import { createMockContext } from '@shopify/jest-koa-mocks';
 
 // Test subject
-import error from '../../../src/middleware/error';
+import { error } from '../../../src/middleware';
 
 describe('Middleware', () => {
   describe('error', () => {
