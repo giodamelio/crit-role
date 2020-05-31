@@ -1,6 +1,9 @@
 import Koa from 'koa';
 
-export default async (ctx: Koa.ParameterizedContext, next: any) => {
+export default async (
+  ctx: Koa.ParameterizedContext,
+  next: Koa.Next
+): Promise<void> => {
   try {
     await next();
   } catch (error) {

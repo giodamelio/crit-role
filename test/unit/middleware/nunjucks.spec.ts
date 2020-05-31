@@ -62,6 +62,25 @@ describe('Middleware', () => {
         await expect(renderPromise).rejects.toThrowError('Cannot render');
         expect(njMock.render).toHaveBeenCalled();
       });
+
+      it('Empty template', async () => {
+        expect.assertions(2);
+
+        const njMock = {
+          render: jest.fn(async (_templatePath, _data, callback) => {
+            callback(null, null);
+          }),
+        };
+
+        const renderPromise = asyncRender(
+          (njMock as unknown) as nj.Environment,
+          'not_a_real_file.njk',
+          {}
+        );
+
+        await expect(renderPromise).rejects.toThrowError('Empty template');
+        expect(njMock.render).toHaveBeenCalled();
+      });
     });
   });
 });
