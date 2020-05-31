@@ -31,4 +31,4 @@ ENV NODE_OPTIONS=--enable-source-maps
 
 ENV NODE_ENV=production
 EXPOSE 3141
-ENTRYPOINT ["node", "dist/index.js"]
+ENTRYPOINT ["node", "dist/src/index.js"]
