@@ -29,7 +29,7 @@ describe('Middleware', () => {
         expect.assertions(2);
 
         const njMock = {
-          render: jest.fn(async (_templatePath, _data, callback) => {
+          render: jest.fn((_templatePath, _data, callback) => {
             callback(null, 'Hello!');
           }),
         };
@@ -37,7 +37,7 @@ describe('Middleware', () => {
         const rendered = await asyncRender(
           (njMock as unknown) as nj.Environment,
           'not_a_real_file.njk',
-          {}
+          {},
         );
 
         expect(rendered).toBe('Hello!');
@@ -48,7 +48,7 @@ describe('Middleware', () => {
         expect.assertions(2);
 
         const njMock = {
-          render: jest.fn(async (_templatePath, _data, callback) => {
+          render: jest.fn((_templatePath, _data, callback) => {
             callback(new Error('Cannot render'), null);
           }),
         };
@@ -56,7 +56,7 @@ describe('Middleware', () => {
         const renderPromise = asyncRender(
           (njMock as unknown) as nj.Environment,
           'not_a_real_file.njk',
-          {}
+          {},
         );
 
         await expect(renderPromise).rejects.toThrowError('Cannot render');
@@ -67,7 +67,7 @@ describe('Middleware', () => {
         expect.assertions(2);
 
         const njMock = {
-          render: jest.fn(async (_templatePath, _data, callback) => {
+          render: jest.fn((_templatePath, _data, callback) => {
             callback(null, null);
           }),
         };
@@ -75,7 +75,7 @@ describe('Middleware', () => {
         const renderPromise = asyncRender(
           (njMock as unknown) as nj.Environment,
           'not_a_real_file.njk',
-          {}
+          {},
         );
 
         await expect(renderPromise).rejects.toThrowError('Empty template');

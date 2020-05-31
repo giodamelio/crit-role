@@ -12,7 +12,7 @@ describe('Middleware', () => {
       const mockContext = createMockContext();
       const errorEventHandler = jest.fn();
       mockContext.app.on('error', errorEventHandler);
-      const failingMiddleware = jest.fn(async () => {
+      const failingMiddleware = jest.fn(() => {
         throw new Error('Hello World');
       });
 

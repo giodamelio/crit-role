@@ -2,7 +2,7 @@ import Koa from 'koa';
 
 export default async (
   ctx: Koa.ParameterizedContext,
-  next: Koa.Next
+  next: Koa.Next,
 ): Promise<void> => {
   try {
     await next();
