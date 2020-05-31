@@ -1,5 +1,6 @@
 import Koa from 'koa';
 import Router from '@koa/router';
+import helmet from 'koa-helmet';
 
 import { error as errorMiddleware, nunjucks } from './middleware';
 
@@ -19,6 +20,7 @@ router.get('/random', async (ctx: Koa.ParameterizedContext) => {
 });
 
 app.use(errorMiddleware);
+app.use(helmet());
 app.use(nunjucks('views'));
 
 app.use(router.routes()).use(router.allowedMethods());
