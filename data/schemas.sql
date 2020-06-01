@@ -1,1 +1,4 @@
-CREATE TABLE `people` (`name` varchar(255));
+CREATE TABLE `people` (
+  `id` TEXT,
+  `name` TEXT
+);
