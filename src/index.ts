@@ -9,37 +9,55 @@ import bodyparser from 'koa-bodyparser';
 
 import logger from './logger';
 import { error as errorMiddleware, nunjucks } from './middleware';
+import db, { setupDatabase } from './database';
 
-const app = new Koa();
-const router = new Router();
+async function main(): Promise<void> {
+  // Setup the database
+  await setupDatabase();
 
-router.get('/', (ctx: Koa.ParameterizedContext) => {
-  ctx.body = 'Hello World';
+  const app = new Koa();
+  const router = new Router();
+
+  router.get('/', (ctx: Koa.ParameterizedContext) => {
+    ctx.body = 'Hello World';
+  });
+
+  router.post('/ping', (ctx: Koa.ParameterizedContext) => {
+    ctx.body = { response: 'pong' };
+  });
+
+  router.get('/tables', async (ctx: Koa.ParameterizedContext) => {
+    const tables = await db.raw(
+      "SELECT * FROM sqlite_master WHERE type = 'table'",
+    );
+    ctx.body = { tables };
+  });
+
+  const randomBytesPromise = promisify(randomBytes);
+  router.get('/random', async (ctx: Koa.ParameterizedContext) => {
+    const len = Number(ctx.request.query.len || 16);
+    const number = (await randomBytesPromise(len)).toString('hex');
+    await ctx.render('random_number.njk', { number });
+  });
+
+  app.use(errorMiddleware);
+  app.use(koaPinoLogger({ logger }));
+  app.use(helmet());
+  app.use(bodyparser());
+  app.use(nunjucks('views'));
+
+  app.use(router.routes()).use(router.allowedMethods());
+
+  // Log when errors happen
+  app.on('error', (error: Error) => {
+    logger.info(error);
+  });
+
+  app.listen(3141);
+  logger.info('App running on port: 3141');
+}
+
+main().catch((error) => {
+  logger.fatal(error, 'Unhandled error: %s', error.message);
+  process.exit(1);
 });
-
-router.post('/ping', (ctx: Koa.ParameterizedContext) => {
-  ctx.body = { response: 'pong' };
-});
-
-const randomBytesPromise = promisify(randomBytes);
-router.get('/random', async (ctx: Koa.ParameterizedContext) => {
-  const len = Number(ctx.request.query.len || 16);
-  const number = (await randomBytesPromise(len)).toString('hex');
-  await ctx.render('random_number.njk', { number });
-});
-
-app.use(errorMiddleware);
-app.use(koaPinoLogger({ logger }));
-app.use(helmet());
-app.use(bodyparser());
-app.use(nunjucks('views'));
-
-app.use(router.routes()).use(router.allowedMethods());
-
-// Log when errors happen
-app.on('error', (error: Error) => {
-  logger.info(error);
-});
-
-app.listen(3141);
-logger.info('App running on port: 3141');
