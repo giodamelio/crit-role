@@ -33,6 +33,11 @@ async function main(): Promise<void> {
     ctx.body = { tables };
   });
 
+  router.get('/people', async (ctx: Koa.ParameterizedContext) => {
+    const people = await db.select('*').from('people');
+    ctx.body = { people };
+  });
+
   const randomBytesPromise = promisify(randomBytes);
   router.get('/random', async (ctx: Koa.ParameterizedContext) => {
     const len = Number(ctx.request.query.len || 16);
