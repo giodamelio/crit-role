@@ -1,5 +1,5 @@
 ## Build the Typescript
-FROM node:14
+FROM node:14-stretch
 
 WORKDIR /usr/src/app
 
@@ -13,7 +13,7 @@ COPY . ./
 RUN npm run build
 
 ## Run the server
-FROM node:14
+FROM node:14-stretch
 
 WORKDIR /usr/src/app
 
