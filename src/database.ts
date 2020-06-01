@@ -2,7 +2,7 @@ import { promises as fs } from 'fs';
 
 import Knex from 'knex';
 
-import logger from './logger';
+import rootLogger from './logger';
 
 const db = Knex({
   client: 'sqlite',
@@ -10,8 +10,12 @@ const db = Knex({
   useNullAsDefault: true,
 });
 
+db.on('query', (queryInfo) => {
+  rootLogger.trace({ step: 'knex-query', queryInfo });
+});
+
 export async function setupDatabase(database: Knex = db): Promise<void> {
-  logger.info('Setting up database');
+  rootLogger.info({ step: 'database-setup' }, 'Setting up database');
 
   // Load the schemas from the file
   const schemasString = (await fs.readFile('data/schemas.sql')).toString();

@@ -7,7 +7,7 @@ import helmet from 'koa-helmet';
 import koaPinoLogger from 'koa-pino-logger';
 import bodyparser from 'koa-bodyparser';
 
-import logger from './logger';
+import rootLogger from './logger';
 import { error as errorMiddleware, nunjucks } from './middleware';
 import db, { setupDatabase } from './database';
 
@@ -46,7 +46,7 @@ async function main(): Promise<void> {
   });
 
   app.use(errorMiddleware);
-  app.use(koaPinoLogger({ logger }));
+  app.use(koaPinoLogger({ logger: rootLogger.child({ step: 'request' }) }));
   app.use(helmet());
   app.use(bodyparser());
   app.use(nunjucks('views'));
@@ -55,14 +55,18 @@ async function main(): Promise<void> {
 
   // Log when errors happen
   app.on('error', (error: Error) => {
-    logger.info(error);
+    rootLogger.info({ step: 'koa-error', error });
   });
 
   app.listen(3141);
-  logger.info('App running on port: 3141');
+  rootLogger.info('App running on port: 3141');
 }
 
 main().catch((error) => {
-  logger.fatal(error, 'Unhandled error: %s', error.message);
+  rootLogger.fatal(
+    { step: 'unhandled-error', error },
+    'Unhandled error: %s',
+    error.message,
+  );
   process.exit(1);
 });

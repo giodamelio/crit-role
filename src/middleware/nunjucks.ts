@@ -1,7 +1,7 @@
 import nunjucks from 'nunjucks';
 import Koa from 'koa';
 
-import logger from '../logger';
+import rootLogger from '../logger';
 
 // Convert the render function to return a promise
 export function asyncRender(
@@ -35,6 +35,8 @@ type KoaMiddleware = (
 export default function nunjucksMiddlewareFactory(
   viewsLocation: string,
 ): KoaMiddleware {
+  const logger = rootLogger.child({ step: 'middleware.nunjucks' });
+
   const nj = new nunjucks.Environment(
     new nunjucks.FileSystemLoader(viewsLocation),
   );
