@@ -10,12 +10,12 @@ const db = Knex({
   useNullAsDefault: true,
 });
 
-export async function setupDatabase(): Promise<void> {
+export async function setupDatabase(database: Knex = db): Promise<void> {
   logger.info('Setting up database');
 
   // Load the schemas from the file
   const schemasString = (await fs.readFile('data/schemas.sql')).toString();
-  await db.raw(schemasString);
+  await database.raw(schemasString);
 }
 
 export default db;
