@@ -25,6 +25,7 @@ RUN npm ci --only=production
 # Copy the code
 COPY --from=0 /usr/src/app/dist/ ./dist/
 COPY views/ ./views/
+COPY data/ ./data/
 
 # Ensure that sourcemaps work correctly
 ENV NODE_OPTIONS=--enable-source-maps

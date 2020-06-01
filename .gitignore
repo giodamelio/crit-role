@@ -2,6 +2,7 @@ node_modules/
 dist/
 coverage/
 tmp/
+data/local.db
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
