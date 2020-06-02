@@ -14,7 +14,14 @@ db.on('query', (queryInfo) => {
   rootLogger.trace({ step: 'knex-query', queryInfo });
 });
 
+let alreadySetup = false;
 export async function setupDatabase(database: Knex = db): Promise<void> {
+  // Make sure the setup only happens once
+  if (alreadySetup) {
+    return;
+  }
+  alreadySetup = true;
+
   rootLogger.info({ step: 'database-setup' }, 'Setting up database');
 
   // Load the schemas from the file
