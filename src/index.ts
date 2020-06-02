@@ -8,7 +8,7 @@ import { error as errorMiddleware, nunjucks } from './middleware';
 import { setupDatabase } from './database';
 import { api, ui, debug } from './router';
 
-async function main(): Promise<void> {
+export default async function setupServer(): Promise<Koa> {
   // Setup the database
   await setupDatabase();
 
@@ -29,15 +29,5 @@ async function main(): Promise<void> {
     rootLogger.info({ step: 'koa-error', error });
   });
 
-  app.listen(3141);
-  rootLogger.info('App running on port: 3141');
+  return app;
 }
-
-main().catch((error) => {
-  rootLogger.fatal(
-    { step: 'unhandled-error', error },
-    'Unhandled error: %s',
-    error.message,
-  );
-  process.exit(1);
-});
