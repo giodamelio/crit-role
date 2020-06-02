@@ -5,7 +5,7 @@ import db from '../../../src/database';
 // Test subject
 import setupServer from '../../../src/index';
 
-describe('Router', () => {
+describe('router', () => {
   describe('api', () => {
     let request: SuperTest<Test>;
     beforeAll(async () => {
@@ -17,22 +17,20 @@ describe('Router', () => {
       await db.destroy();
     });
 
-    it('should succesfully ping', () => {
+    it('should succesfully ping', async () => {
       expect.assertions(0);
 
-      return (
-        request
-          // Pong is important, ok?
-          .get('/api/ping')
-          .expect(200)
-          .expect({ response: 'pong' })
-      );
+      await request
+        // Pong is important, ok?
+        .get('/api/ping')
+        .expect(200)
+        .expect({ response: 'pong' });
     });
 
-    it('should list the people', () => {
+    it('should list the people', async () => {
       expect.assertions(1);
 
-      return request
+      await request
         .get('/api/people')
         .expect(200)
         .then((res) => {

@@ -5,12 +5,12 @@ import Knex from 'knex';
 // Test subject
 import db, { setupDatabase } from '../../src/database';
 
-describe('Database', () => {
+describe('database', () => {
   afterAll(async () => {
     await db.destroy();
   });
 
-  it('Sets up the database', async () => {
+  it('sets up the database', async () => {
     expect.assertions(2);
 
     await setupDatabase();
@@ -25,13 +25,15 @@ describe('Database', () => {
   });
 
   // This is a hack to keep the local.db up to date
-  it('Write the local.db', async () => {
+  it('write the local.db', async () => {
     expect.assertions(0);
 
     // Delete the database file unless it doesn't exist
     try {
       await fs.unlink('data/local.db');
     } catch (err) {
+      // We want to rethrow all errors unless it is a files does not exist error
+      // eslint-disable-next-line jest/no-if
       if (err.code !== 'ENOENT') {
         throw err;
       }

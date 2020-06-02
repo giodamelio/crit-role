@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Router api should list the people 1`] = `
+exports[`router api should list the people 1`] = `
 Array [
   Object {
     "id": "ashley-johnson",
