@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Router api should list the people 1`] = `
+Array [
+  Object {
+    "id": "ashley-johnson",
+    "name": "Ashley Johnson",
+  },
+  Object {
+    "id": "laura-bailey",
+    "name": "Laura Bailey",
+  },
+  Object {
+    "id": "liam-obrien",
+    "name": "Liam O'Brien",
+  },
+  Object {
+    "id": "marisha-ray",
+    "name": "Marisha Ray",
+  },
+  Object {
+    "id": "matthew-mercer",
+    "name": "Matthew Mercer",
+  },
+  Object {
+    "id": "sam-riegel",
+    "name": "Sam Riegel",
+  },
+  Object {
+    "id": "taliesin-jaffe",
+    "name": "Taliesin Jaffe",
+  },
+  Object {
+    "id": "travis-willingham",
+    "name": "Travis Willingham",
+  },
+]
+`;
