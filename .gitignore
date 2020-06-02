@@ -3,8 +3,3 @@ dist/
 coverage/
 tmp/
 data/local.db
-
-# Elastic Beanstalk Files
-.elasticbeanstalk/*
-!.elasticbeanstalk/*.cfg.yml
-!.elasticbeanstalk/*.global.yml
