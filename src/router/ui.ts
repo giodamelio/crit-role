@@ -3,8 +3,8 @@ import Router from '@koa/router';
 
 const router = new Router({ prefix: '/' });
 
-router.get('/', (ctx: Koa.ParameterizedContext) => {
-  ctx.body = 'Hello World';
+router.get('/', async (ctx: Koa.ParameterizedContext) => {
+  await ctx.render('index.njk');
 });
 
 export default router;

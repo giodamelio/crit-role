@@ -23,8 +23,7 @@ describe('router', () => {
       await request
         .get('/')
         .expect(200)
-        .expect('Content-Type', 'text/plain; charset=utf-8')
-        .expect('Hello World');
+        .expect('Content-Type', 'text/html; charset=utf-8');
     });
   });
 });
