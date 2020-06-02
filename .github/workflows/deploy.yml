@@ -24,7 +24,7 @@ jobs:
     - name: 'List built files'
       run: ls -R dist/
     - name: 'Compress build artifact'
-      run: zip -r build.zip dist/src/ views/ data/ package.json package-lock.json
+      run: zip -r build.zip dist/ views/ data/ package.json package-lock.json
     - name: Upload transpiled source
       uses: actions/upload-artifact@v1
       with:
