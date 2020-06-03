@@ -16,4 +16,4 @@ COPY data/ ./data/
 ENV NODE_OPTIONS=--enable-source-maps
 ENV NODE_ENV=production
 
-ENTRYPOINT ["node", "dist/index.js"]
+ENTRYPOINT ["node", "dist/server.js"]
