@@ -55,7 +55,7 @@ jobs:
       env:
         PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
         IMAGE_TAG: ${{ github.sha }}
-      run: docker build -t gcr.io/$PROJECT_ID/test:$IMAGE_TAG .
+      run: docker build -t gcr.io/$PROJECT_ID/main:$IMAGE_TAG .
 
     - name: Auth Docker with GCP
       run: gcloud auth configure-docker
