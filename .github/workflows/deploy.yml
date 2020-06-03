@@ -23,3 +23,9 @@ jobs:
     - run: npm run build
     - name: List built files
       run: ls -R dist/
+    - name: Build docker image
+      id: build-image
+      env:
+        PROJECT_ID: crit-role
+        IMAGE_TAG: ${{ github.sha }}
+      run: docker build -t gcr.io/$PROJECT_ID/test:$IMAGE_TAG .
