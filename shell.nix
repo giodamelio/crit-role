@@ -8,5 +8,6 @@ pkgs.mkShell {
 
     # Dev tools
     pkgs.just
+    pkgs.google-cloud-sdk
   ];
 }
