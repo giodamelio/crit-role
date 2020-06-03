@@ -1,10 +1,12 @@
 import setupServer from './index';
 import rootLogger from './logger';
 
+const PORT = process.env.PORT || 3141;
+
 setupServer()
   .then((app) => {
-    app.listen(3141);
-    rootLogger.info('App running on port: 3141');
+    app.listen(PORT);
+    rootLogger.info(`App running on port: ${PORT}`);
   })
   .catch((error) => {
     rootLogger.fatal(
