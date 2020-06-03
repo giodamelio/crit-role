@@ -42,4 +42,4 @@ jobs:
       env:
         PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
         IMAGE_TAG: ${{ github.sha }}
-      run: docker push gcr.io/$PROJECT_ID/test:$IMAGE_TAG
+      run: docker push gcr.io/$PROJECT_ID/main:$IMAGE_TAG
