@@ -14,30 +14,52 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+        - name: Cache node modules
+
+    - name: Cache
+      uses: actions/cache@v2
+      env:
+        cache-name: cache-node-modules
+      with:
+        # npm cache files are stored in `~/.npm` on Linux/macOS
+        path: ~/.npm
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-build-${{ env.cache-name }}-
+          ${{ runner.os }}-build-
+          ${{ runner.os }}-
+
     - run: npm ci
+
     - run: npm test
+
     - run: npm run build
+
     - name: List built files
       run: ls -R dist/
+
     - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
       with:
         version: 'latest'
         project_id: ${{ secrets.GCP_PROJECT_ID }}
         service_account_key: ${{ secrets.GCP_SA_KEY }}
         export_default_credentials: true
-    - run: gcloud info
+
     - name: Build docker image
       id: build-image
       env:
         PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
         IMAGE_TAG: ${{ github.sha }}
       run: docker build -t gcr.io/$PROJECT_ID/test:$IMAGE_TAG .
+
     - name: Auth Docker with GCP
       run: gcloud auth configure-docker
+
     - name: Push image
       env:
         PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
